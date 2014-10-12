@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'store',
 )
 
+
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -65,7 +66,7 @@ DATABASES = {
 
 # Setting Template Directory[EDITED]
 TEMPLATE_DIRS = (
-        '/home/ajha/git_zi/D3v-ill/server/templates',
+        '/home/ajha/codes/PROJECTS/inmobi_nee/server/templates',
         )
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
@@ -85,6 +86,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+        '/home/ajha/codes/PROJECTS/inmobi_nee/server/static',
+        )
 #EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'

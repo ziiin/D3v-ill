@@ -1,17 +1,110 @@
-<!DOCTYPE html>
 <html>
-    <body>
-    <h2> Requesting Access </h2>
+<head>
+        <link rel="stylesheet" href="{{STATIC_URL}}css/metro-bootstrap.css">
+        <link rel="stylesheet" href="{{STATIC_URL}}css/medha.css">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="{{STATIC_URL}}docs/js/jquery/jquery.min.js"></script>
+        <script src="{{STATIC_URL}}js/medha.js"></script>
+        <script src="{{STATIC_URL}}docs/js/jquery/jquery.widget.min.js"></script>
+        <script src="{{STATIC_URL}}docs/js/metro.min.js"></script>
+       
+         </head>
+<body class="metro colo" onload="populate_free()">
+<div class="tab-control" data-role="tab-control">
+    <ul class="tabs">
+        <li class="active"><a href="#_page_1">SUGGESTIONS</a></li>
+        <li><a href="#_page_2">REQUESTS</a></li>
+    </ul>
+ 
+    <div class="frames sizee " style="background-image: url({{STATIC_URL}}docs/images/greenbg.jpg);">
+        <div class="frame" id="_page_1">Following are the people you want to share the ride with. Please send requests to people according to your interests. <br><br>
+        <div class="listview">
+    <a href="#" class="list">
+        <div class="list-content" id="list-1">
+           sdfs
+        </div>
+    </a>
+ 
+    <a href="#" class="list shadow" id="list-2">
+        <div class="list-content">
+            a2
+                <div class="button-set">
+    <button class="active">Send Request</button>
+</div>
+        </div>
+    </a>
+ 
+    <a href="#" class="list shadow" id="list-3">
+        <div class="list-content">
+            nid<br>
+            <div class="button-set">
+    <button class="active">Send Request</button>
+</div>
+        </div>
+    </a>
+    <a href="#" class="list shadow" id="list-4">
+        <div class="list-content">
+            Medha<br>
+            <div class="button-set">
+    <button class="active">Send Request</button>
+</div>
+        </div>
+    </a>
+</div>
 
-        <form action="/re_handler" method= "get">
-            <p> Please provide the following details</p>
-            <!-- <p> Your user-name<input type="text" name="fuser" placeholder="From-User"></p> -->
-            <p> Username of other person <input type="text" name="tuser" placeholder="To-User"> </p>
-            <input type="checkbox" name="phone" value="T">Request for Phone Access<br>
-            <p>Message for permission<input type="text" name="msg" placeholder="Message"></p>
-            <input type="submit" value="Send request">
-        </form>
+</div>
+        <div class="frame" id="_page_2">These people want to share the ride with you. Accept or reject their requests!<br><br>
+                <div class="listview">
+    <a href="#" class="list">
+            <div class="list-content">
+           qwerty1 <br>
+           <div class="button-set">
+    <button class="active" onClick="grantRequest(1)"  id="gabtn-1">Accept</button>
+     <button class="active" onClick="grantRequest(2)"  id="grbtn-1">Reject</button>
+      <button class="active" onClick="grantRequest(3)"  id="gbbtn-1">Block</button>
+      
+</div>
+        </div>
+    </a>
+ 
+    <a href="#" class="list shadow">
+        <div class="list-content">
+            a2 <br>
+           <div class="button-set">
+    <button class="active" onClick="grantRequest2(1)"  id="gabtn-2">Accept</button>
+     <button class="active" onClick="grantRequest2(2)"  id="grbtn-2">Reject</button>
+     <button class="active" onClick="grantRequest2(3)"  id="gbbtn-2">Block</button>
+      
+</div>
+        </div>
+    </a>
+ 
+    <a href="#" class="list shadow">
+        <div class="list-content">
+            sdfs <br>
+           <div class="button-set">
+    <button class="active">Accept</button>
+     <button class="active">Reject</button>
+      <button class="active">Block</button>
+</div>
+        </div>
+    </a>
+    <a href="#" class="list shadow">
+        <div class="list-content">
+            medha <br>
+           <div class="button-set">
+    <button class="active">Accept</button>
+     <button class="active">Reject</button>
+      <button class="active">Block</button>
+</div>
+        </div>
+    </a>
+</div>
 
-    </body>
+</div>
+       
+    </div>
+</div>
+
+</body>
 </html>
-

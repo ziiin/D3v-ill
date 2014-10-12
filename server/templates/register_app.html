@@ -1,15 +1,68 @@
 <html>
-<body>
-<h1>Create an account</h1>
+<head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<link rel="stylesheet" href="{{STATIC_URL}}css/metro-bootstrap.css">
+<link rel="stylesheet" href="{{STATIC_URL}}css/neeraj_style.css">
+	<script src="{{STATIC_URL}}docs/js/jquery/jquery.widget.min.js"></script>
+        <script src="{{STATIC_URL}}docs/js/metro.min.js"></script>
+	<script src="{{STATIC_URL}}js/neeraj_func.js"></script>
+ 	
+</head>
 
-  <form action="/register" method="post">
-      <label for="username">User name:</label>
-      <input type="text" name="username" value="" id="username">
-       <label for="password">Password:</label>
-       <input type="password" name="password" value="" id="password">
-       <label for="re_password">Confirm Password:</label>
-       <input type="password" name="re_password" value="" id="re_password">
-      <input type="submit" value="Create the account">
-  </form>
+
+
+<body class="metro" background="{{STATIC_URL}}docs/images/travel1.jpg" style="background-attachment: fixed;" >
+<div class="top-bar">
+<h1><center>Travel Together. <div class="button-dropdown"  >
+    <button class="dropdown-toggle inverse" onclick="logout()" id="logout_button" >Scroll</button>
+</div></center></h1>
+
+</div>
+<div  class="metro" style="margin-top:300px;margin-bottom:20px; width:100%; background: #3399cc; height:300px;">
+<div  style= "margin-left: 5%;"><br><br><br><br><br>
+<h1> Find People who actually travels with you, Every Day ! </h1>
+</div>
+</div>
+
+</div>
+<div id="reg_box" class="metro" style="margin-top:300px;margin-bottom:20px; width:100%; background: #3399cc; height:300px;">
+<div id="reg_text" style= "margin-left: 40%; ">
+<h1> Register </h1>
+<label>Email :</label>
+<input type="text" name="demail" id="email">
+<label>Password :</label>
+<input type="password" name="password" id="password">
+<label>Confirm Password :</label>
+<input type="password" name="cpassword" id="re_password"><br><br>
+<button class="command-button inverse" onclick="send_reg_ajax()" id="reg_button">
+    <i class="icon-share-3 on-right"></i>
+   <center> Yes, I wanna Register. </center>
+    <small>Email Authentication required after this step. </small>
+</button>
+</div>
+</div>
+
+<div class="wrapper">
+		<div  style="margin-top:300px;  margin-bottom:20px; width:100%; height:300px;
+    margin-right: auto; background: #3399cc;">
+		<div id="login_text" style="margin-left:40%" >
+				<h1>Login</h1>
+				<label>Email :</label>
+				<input name="login_email" type="text" class="username" id="login_email">
+				<label>Password :</label>
+    			<input name="password" type="password" class="password" id="login_password"/>
+			<br><br>
+		<button class="command-button inverse" onclick="login_function()" id="login_button">
+    		<i class="icon-share-3 on-right"></i>
+   		<center> Login </center>
+   		 <small>Yes, I already have an account. </small>
+			</button>
+		</div>
+			   
+		</div>
+</div>
+	
+
+
 </body>
 </html>

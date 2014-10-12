@@ -1,19 +1,33 @@
 <html>
-    <head>
-        <title>Registering</title>
-    </head>
-
-    <body>
-        <form action="/doreg" method="get">
-            <!--<input type="text" name="user" placeholder="Username"></br> -->
-            <input type="email" name="email" placeholder="Email-ID"></br>
-            <input type="text" name="phone" placeholder="Phone"></br>
-            <input type="text" name="msg" placeholder="Diplay Message"></br>
-            <input type="text" name="homelo" placeholder="Home longitude"></br>
-            <input type="text" name="homela" placeholder="Home latitude"></br>
-            <input type="text" name="officelo" placeholder="Office longitude"></br>
-            <input type="text" name="officela" placeholder="Office latitude"></br>
-            <input type="submit" value="Update">
-        </form>
+<head>
+        <link rel="stylesheet" href="{{STATIC_URL}}css/metro-bootstrap.css">
+        <link rel="stylesheet" href="{{STATIC_URL}}css/medha.css">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="{{STATIC_URL}}docs/js/jquery/jquery.min.js"></script>
+        <script src="{{STATIC_URL}}js/medha.js"></script>
+        <script src="{{STATIC_URL}}docs/js/jquery/jquery.widget.min.js"></script>
+        <script src="{{STATIC_URL}}docs/js/metro.min.js"></script>
+                 </head>
+<body class="metro" background="{{STATIC_URL}}docs/images/travel1.jpg" style="background-attachment: fixed";>
+<div class="fon colo">
+<center><h1>Fill up your details</h1></center></div>
+<br>
+<br>
+       
+        <div style=" height=300px; margin-top: 300px;" class="colo" >
+            <h2> 
+                  <div style=" margin-left: 30%;" >
+            EMAIL ID : <input type="email" id="memail"><br><br>
+            CONTACT  : <input type="text" id="mphone"><br><br>
+            MESSAGE  : <input type="text" id="mmsg"><br><br>
+           <input type="submit" value="Update" onClick="update()">
+             </div >
+            </h2>
+        </div>
+         
+         <div style=" height=300px; margin-top: 300px;" class="colo" >
+            .
+         </div>
+        
     </body>
 </html>

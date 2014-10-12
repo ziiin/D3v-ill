@@ -1,0 +1,30 @@
+@charset "utf-8";
+/* CSS Document */
+
+.colo
+{
+	background:#3399cc;
+}
+
+tr.space > td
+{
+	padding-bottom:1em;
+	padding-top:1em;
+}
+
+.fon
+{
+	
+ font-size:40px;
+ font-family:Georgia, "Times New Roman", Times, serif;
+ width:auto;
+ height:100px;
+ font-weight:bold;
+}
+
+
+.sizee
+{
+	font-size:24px;
+	font-family:Georgia, "Times New Roman", Times, serif;
+}

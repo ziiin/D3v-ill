@@ -25,15 +25,21 @@ def doReg (request):
     # doreg/?user=test1&email=email%40gmail.com&phone=455445&msg=test_message&
     # homelo=hla1&homela=hlo1&officelo=olo1&officela=ola1
     message = ""
-    cur_u = w.cur_user (request);
+    cur_u = w.cur_user (request)
     if cur_u == None:
         print "Not Logged in"
         return HttpResponse ("Please Login")
+    base_row = userDetail.objects.filter(uname=cur_u)
+    if len(base_row) != 0:
+        return HttpResponse ("User Exists")
     rowData = dict()
     rowData["user"] = cur_u
     for key in request.GET:
         if key == "email":
             value = request.GET[key]
+        else:
+            value = str(request.GET[key])
+        '''
         elif key in ["homelo", "officelo"]:
             value = str(request.GET[key])
             value = w.validateLongi(value)
@@ -47,13 +53,14 @@ def doReg (request):
 
         else:
             value = str(request.GET[key])
+        '''
         message+= key + ": " + str(value) + ": "
         rowData[key] = value
     row = userDetail (uname = rowData["user"], email=rowData["email"],       \
                       phone = rowData["phone"], msg=rowData["msg"],          \
-                      homelo = rowData["homelo"], homela = rowData["homela"],\
-                      officelo = rowData["officelo"],                        \
-                      officela = rowData["officela"] )
+                      homelo = "10.1111", homela = "10.1111",\
+                      officelo = "10.1111",                        \
+                      officela = "10.1111" )
     row.save()
     
     message +="   Dict: " + str(rowData)
@@ -86,7 +93,7 @@ def search (request):
     else:
         base_user = cur_u
 
-    
+    print base_user
     base_row = userDetail.objects.filter(uname=base_user)
     
     if len(base_row) == 0:
@@ -115,7 +122,10 @@ def search (request):
                 if str(row.uname) != str(base_row[0].uname):
                     result.append(str(row.uname))
 
-    return HttpResponse (str(result))
+    resStr = ""
+    for s in result:
+        resStr+= s + ','
+    return HttpResponse (resStr[0:-1])
 
 def requestForm (request):
     # render form
@@ -148,6 +158,7 @@ def requestHandler (request):
     row.save()
     row1 = authDb (from_user = fuser, to_user = tuser, re_status = "0100")
     row1.save()
+
     # [TODO] DO not allow redundant requests and blocked requests
     # [TODO] Handle False users as fuser and tuser
     
@@ -241,6 +252,7 @@ def listRequests (request):
         return HttpResponse ("Please Login")
     else:
         user = cur_u
+    print "Cur user: ", cur_u
     '''
     if "user" in request.GET:
         user = request.GET["user"]
@@ -249,16 +261,16 @@ def listRequests (request):
     '''
     allRows = authDb.objects.filter(to_user = user)
 
-    for row in allRows:
+    for row in allRows: 
         reStatus = str(row.re_status)
         if reStatus[0] != "1" and reStatus[3] != "1":
             if reStatus[1] =="1" and reStatus[2] == "0":
                 userList.append(str(row.from_user))
+    print str(userList)
     return HttpResponse ( str(userList))
     # get the user sent from the from
     # search among all objects in authDb for pending, not blocked users
     # and show them in list
-    pass
 
 def mailForm (request):
     return render (request, 'send_mail.html')
@@ -378,11 +390,93 @@ def loggedin (request):
 User email id verification
 '''
 
-def gdlDisp (request):
-    return render(request, 'gdl.html')
+def gdlHome (request):
+    return render(request, 'gdl_home.html')
+
+def gdlOffice (request):
+    return render(request, 'gdl_office.html')
 
 def feedLoc (request):
     # handler for gdl map to edit location data
     pass
 
+def syncHome(request):
+    # get currently logged in user
+    # the hlo, hla key pairs
+    # get the user detail row with user as logged in user
+    # replace the new pairs and save the row
+    hlo = ""
+    hla = ""
+    if "hlo" in request.GET:
+        hlo = str(request.GET["hlo"]) 
+        hlo = w.validateLongi(hlo)
+        if hlo == None:
+            return HttpResponse ("Bad longitude")
+    if "hla" in request.GET:
+        hla = str(request.GET["hla"])
+        hla = w.validateLati(hla)
+        if hla == None:
+            return HttpResponse ("Bad latitude")
 
+        
+    cur_u = w.cur_user (request)
+    if cur_u == None:
+        print "Not Logged in"
+        return HttpResponse ("Please Login")
+    base_row = userDetail.objects.filter(uname=cur_u)
+    print hlo, hla, str(base_row[0].homelo), str(base_row[0].homela)
+    base_row[0].homelo = 11.1155
+    base_row[0].homela = 11.5555
+    
+    uname = base_row[0].uname
+    email = base_row[0].email
+    phone = base_row[0].phone
+    msg = base_row[0].msg
+    ola = base_row[0].officela
+    olo = base_row[0].officelo
+
+    base_row[0].delete()
+    row = userDetail (uname = uname, email = email, phone = phone,\
+            msg = msg, homela = hla, homelo = hlo, \
+            officela = ola, officelo = olo)
+    row.save()
+    return HttpResponse ("Done Updation")
+
+def syncOffice(request):
+    # get currently logged in user
+    # the hlo, hla key pairs
+    # get the user detail row with user as logged in user
+    # replace the new pairs and save the row
+    olo = ""
+    ola = ""
+    if "olo" in request.GET:
+        olo = str(request.GET["olo"]) 
+        olo = w.validateLongi(olo)
+        if olo == None:
+            return HttpResponse ("Bad longitude")
+    if "ola" in request.GET:
+        ola = str(request.GET["ola"])
+        ola = w.validateLati(ola)
+        if ola == None:
+            return HttpResponse ("Bad latitude")
+
+        
+    cur_u = w.cur_user (request)
+    if cur_u == None:
+        print "Not Logged in"
+        return HttpResponse ("Please Login")
+    base_row = userDetail.objects.filter(uname=cur_u)
+
+    uname = base_row[0].uname
+    email = base_row[0].email
+    phone = base_row[0].phone
+    msg = base_row[0].msg
+    hla = base_row[0].homela
+    hlo = base_row[0].homelo
+
+    base_row[0].delete()
+    row = userDetail (uname = uname, email = email, phone = phone,\
+            msg = msg, homela = hla, homelo = hlo, \
+            officela = ola, officelo = olo)
+    row.save()
+    return HttpResponse ("Done Updation")
