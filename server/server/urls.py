@@ -24,6 +24,8 @@ urlpatterns = patterns('',
     url(r'^do_login$', 'server.views.login_view', name='log'), # login handler
     url(r'^loggedin$', 'server.views.loggedin', name='loggedin'),# logged in status
     url(r'^logout$', 'server.views.logout', name='logout'), # logout
+
+    url(r'^gdl$', 'server.views.gdlDisp', name='gdl'),
     # url(r'^blog/', include('blog.urls')),
 
     #url(r'^admin/', include(admin.site.urls)),

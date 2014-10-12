@@ -25,7 +25,12 @@ def doReg (request):
     # doreg/?user=test1&email=email%40gmail.com&phone=455445&msg=test_message&
     # homelo=hla1&homela=hlo1&officelo=olo1&officela=ola1
     message = ""
+    cur_u = w.cur_user (request);
+    if cur_u == None:
+        print "Not Logged in"
+        return HttpResponse ("Please Login")
     rowData = dict()
+    rowData["user"] = cur_u
     for key in request.GET:
         if key == "email":
             value = request.GET[key]
@@ -68,10 +73,19 @@ def search (request):
     base_olo = 0.0
     base_ola = 0.0
 
+    '''
     if "user" in request.GET:
         base_user = str(request.GET["user"])
     else:
         return HttpResponse ("Username not Provided")
+    '''
+    cur_u = w.cur_user (request);  
+    if cur_u == None:         
+        print "Not Logged in" 
+        return HttpResponse ("Please Login")
+    else:
+        base_user = cur_u
+
     
     base_row = userDetail.objects.filter(uname=base_user)
     
@@ -109,11 +123,19 @@ def requestForm (request):
 
 def requestHandler (request):
     # ?fuser=ajeet&tuser=ajet1&phone=T
-    if "fuser" in request.GET and "tuser" in request.GET:
-        fuser = str(request.GET["fuser"])
+    if "tuser" in request.GET:
+        #fuser = str(request.GET["fuser"])
         tuser = str(request.GET["tuser"])
     else:
         return HttpResponse ("Username Not available")
+
+    cur_u = w.cur_user (request);  
+    if cur_u == None:         
+        print "Not Logged in" 
+        return HttpResponse ("Please Login")
+    else:
+        fuser = cur_u
+
     
     msg = "NONE"
     if "msg" in request.GET:
@@ -141,11 +163,20 @@ def grantForm (request):
 
 def grantHandler (request):
     # ?fuser=&tuser=&accept_p=T&reject_p=T&block=T
-    if "fuser" in request.GET and "tuser" in request.GET:
+    fuser = ""
+    tuser =""
+    if "fuser" in request.GET :
         fuser = str(request.GET["fuser"])
-        tuser = str(request.GET["tuser"])
+        #tuser = str(request.GET["tuser"])
     else:
         return HttpResponse ("Username Not available")
+    cur_u = w.cur_user (request)
+    if cur_u == None: 
+        print "Not Logged in" 
+        return HttpResponse ("Please Login")
+    else:
+        tuser = cur_u
+    print fuser, tuser
     accepted = False
     rejected = False
     blocked = False
@@ -166,7 +197,7 @@ def grantHandler (request):
     authRow = authDb.objects.filter(from_user = fuser, to_user = tuser)
 
     if len (authRow) == 0:
-        print "No entry found in authDb for : %s, %s" % fuser, tuser
+        print "No entry found in authDb for : " + fuser +" : " +  tuser
 
     statusStr = str(authRow[0].re_status)
     newStatus = statusStr
@@ -204,11 +235,18 @@ def listRequestsForm (request):
 def listRequests (request):
     user = ""
     userList = []
+    cur_u = w.cur_user (request)
+    if cur_u == None:
+        print "Not Logged in"
+        return HttpResponse ("Please Login")
+    else:
+        user = cur_u
+    '''
     if "user" in request.GET:
         user = request.GET["user"]
     else:
         return HttpResponse ("User-name Not Provided")
-
+    '''
     allRows = authDb.objects.filter(to_user = user)
 
     for row in allRows:
@@ -340,4 +378,11 @@ def loggedin (request):
 User email id verification
 '''
 
- 
+def gdlDisp (request):
+    return render(request, 'gdl.html')
+
+def feedLoc (request):
+    # handler for gdl map to edit location data
+    pass
+
+

@@ -1,6 +1,7 @@
 import sys
 from math import radians, cos, sin, asin, sqrt
 import uuid
+from django.contrib.auth.models import User
 
 def validateLongi (lo):
     value = None
@@ -55,5 +56,16 @@ def is_dist_km_far (src_x, src_y, dest_x, dest_y, dist = 5.0):
         else:
             return (None, None)
 
-def uuidGen ():
+# get user from logged in user
 
+def cur_user (request):
+    ''' Returns none if member_id session is not available
+    Else return the logged-in user.
+    '''
+    if "member_id" not in request.session:
+        return None
+    else:
+        Id = request.session['member_id']
+        m = User.objects.get(id=Id)
+        return m.username
+    
