@@ -1,7 +1,6 @@
-D3v-ill
+Favel (Fun Travel)
 =======
 This is an application for inmobi hackathon.                                                                                                                            
 
-Project name is D3v-ill, and is supposed to eliminate
-the unknown weirdness among random people belonging to
-similar occupation or field.
+Favel breaks the silence among strangers who share common
+means of public transport every-day.
